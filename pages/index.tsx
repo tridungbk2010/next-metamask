@@ -8,38 +8,79 @@ declare global {
   }
 }
 
+export const CONNECT_TEXT = "Connect Wallet";
+export const CONNECTED_TEXT = "Connected";
+
 const Home: NextPage = () => {
-  const [acc, setAcc] = useState("");
-  const [text, setText] = useState("Connect wallet");
+  const [account, setAccount] = useState("");
+  const [connButtonText, setConnButtonText] = useState(CONNECT_TEXT);
 
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      connectWallet();
-    }
-  }, []);
-
-  function connectWallet() {
+  const connectWalletHandler = () => {
     if (window.ethereum) {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
-        .then((accounts: string[]) => {
-          setAcc(accounts[0]);
-          setText("Connected");
-        })
-        .catch((err: any) => {
-          console.log(err);
+        .then((result: any) => {
+          setAccount(result[0]);
+          setConnButtonText(CONNECTED_TEXT);
         });
+    }
+  };
+
+  // update account, will cause component re-render
+  function accountChangedHandler(newAccount: string) {
+    if (!!newAccount?.length) {
+      setAccount(newAccount[0]);
     }
   }
 
+  useEffect(() => {
+    // Check mobile and init connecting to wallet
+    if (window.innerWidth < 768) {
+      connectWalletHandler();
+    }
+  }, []);
+
+  useEffect(() => {
+    const isMetamask = window.ethereum;
+
+    if (isMetamask) {
+      window.ethereum.on("accountsChanged", accountChangedHandler);
+    }
+    return () => {
+      if (isMetamask) {
+        window.ethereum.removeListener(
+          "accountsChanged",
+          accountChangedHandler
+        );
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    function chainChangedHandler() {
+      window.location.reload();
+    }
+
+    const isMetamask = window.ethereum;
+
+    if (isMetamask) {
+      window.ethereum.on("chainChanged", chainChangedHandler);
+    }
+    return () => {
+      if (isMetamask) {
+        window.ethereum.removeListener("chainChanged", chainChangedHandler);
+      }
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
-      {acc ? (
-        <span>{text}</span>
+      {account ? (
+        <span>{connButtonText}</span>
       ) : (
-        <button onClick={connectWallet}>{text}</button>
+        <button onClick={connectWalletHandler}>{connButtonText}</button>
       )}
-      <div>Acc: {acc}</div>
+      <div>Acc: {account}</div>
     </div>
   );
 };
