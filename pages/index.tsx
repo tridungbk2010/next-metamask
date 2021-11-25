@@ -13,7 +13,9 @@ const Home: NextPage = () => {
   const [text, setText] = useState("Connect wallet");
 
   useEffect(() => {
-    connectWallet();
+    if (window.innerWidth < 768) {
+      connectWallet();
+    }
   }, []);
 
   function connectWallet() {
