@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   }, []);
 
   function connectWallet() {
-    if (window.ethereum && window.ethereum.isMetamask) {
+    if (window.ethereum) {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts: string[]) => {
