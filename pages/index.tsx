@@ -17,15 +17,17 @@ const Home: NextPage = () => {
   }, []);
 
   function connectWallet() {
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts: string[]) => {
-        setAcc(accounts[0]);
-        setText("Connected");
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
+    if (window.ethereum && window.ethereum.isMetamask) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((accounts: string[]) => {
+          setAcc(accounts[0]);
+          setText("Connected");
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    }
   }
 
   return (
