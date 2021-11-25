@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 
 declare global {
@@ -10,19 +10,31 @@ declare global {
 
 const Home: NextPage = () => {
   const [acc, setAcc] = useState("");
+  const [text, setText] = useState("Connect wallet");
+
+  useEffect(() => {
+    connectWallet();
+  }, []);
+
   function connectWallet() {
     window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((accounts: string[]) => {
         setAcc(accounts[0]);
+        setText("Connected");
       })
       .catch((err: any) => {
         console.log(err);
       });
   }
+
   return (
     <div className={styles.container}>
-      <button onClick={connectWallet}>Connect wallet</button>
+      {acc ? (
+        <span>{text}</span>
+      ) : (
+        <button onClick={connectWallet}>{text}</button>
+      )}
       <div>Acc: {acc}</div>
     </div>
   );
