@@ -6,10 +6,10 @@ class MyDocument extends Document {
       <Html>
         <Head lang="en">
           <link rel="icon" type="image/png" href="/favicon.png" />
-          <link
+          {/* <link
             href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
             rel="stylesheet"
-          />
+          /> */}
           {/* <link
             href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap"
             rel="stylesheet"
