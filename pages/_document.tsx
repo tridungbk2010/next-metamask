@@ -5,15 +5,15 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head lang="en">
-          {/* <link rel="icon" type="image/png" href="/favicon.png" /> */}
+          <link rel="icon" type="image/png" href="/favicon.png" />
           <link
             href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
             rel="stylesheet"
           />
-          <link
+          {/* <link
             href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap"
             rel="stylesheet"
-          />
+          /> */}
         </Head>
         <body>
           <Main />
