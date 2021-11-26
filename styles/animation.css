@@ -1,0 +1,52 @@
+.move-left {
+  animation: move-left 40s linear infinite;
+  animation-delay: -40s;
+}
+.move-left-next {
+  animation: move-left-next 40s linear infinite;
+  animation-delay: -20s;
+}
+.move-right {
+  animation: move-right 40s linear infinite;
+  animation-delay: -40s;
+}
+.move-right-next {
+  animation: move-right-next 40s linear infinite;
+  animation-delay: -20s;
+}
+
+@keyframes move-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes move-left-next {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+@keyframes move-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes move-right-next {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

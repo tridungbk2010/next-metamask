@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { isMetamask } from "../lib/metamask";
+import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { isMetamask } from '../lib/metamask';
 
 // const ONBOARD_TEXT = 'Click here to install MetaMask!';
-export const CONNECT_TEXT = "Connect Wallet";
-export const CONNECTED_TEXT = "Connected";
+export const CONNECT_TEXT = 'Connect Wallet';
+export const CONNECTED_TEXT = 'Connected';
 
 declare global {
   interface Window {
@@ -21,18 +21,18 @@ type Context = {
 };
 
 const EthereumContext = React.createContext<Context>({
-  account: "",
-  buttonText: "",
+  account: '',
+  buttonText: '',
 });
 
 function EthereumProvider({ children }: { children: React.ReactNode }) {
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState('');
   const [connButtonText, setConnButtonText] = useState(CONNECT_TEXT);
 
   const connectWalletHandler = useCallback(() => {
     if (isMetamask()) {
       window.ethereum
-        .request({ method: "eth_requestAccounts" })
+        .request({ method: 'eth_requestAccounts' })
         .then((result: string[]) => {
           accountChangedHandler(result);
           setConnButtonText(CONNECTED_TEXT);
@@ -57,13 +57,13 @@ function EthereumProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isMetamask()) {
-      window.ethereum.on("accountsChanged", accountChangedHandler);
+      window.ethereum.on('accountsChanged', accountChangedHandler);
     }
     return () => {
       if (isMetamask()) {
         window.ethereum.removeListener(
-          "accountsChanged",
-          accountChangedHandler
+          'accountsChanged',
+          accountChangedHandler,
         );
       }
     };
@@ -75,11 +75,11 @@ function EthereumProvider({ children }: { children: React.ReactNode }) {
     }
 
     if (isMetamask()) {
-      window.ethereum.on("chainChanged", chainChangedHandler);
+      window.ethereum.on('chainChanged', chainChangedHandler);
     }
     return () => {
       if (isMetamask()) {
-        window.ethereum.removeListener("chainChanged", chainChangedHandler);
+        window.ethereum.removeListener('chainChanged', chainChangedHandler);
       }
     };
   }, []);

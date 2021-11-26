@@ -1,3 +1,3 @@
 export function isMetamask() {
-  return typeof window !== "undefined" && !!window.ethereum;
+  return typeof window !== 'undefined' && !!window.ethereum;
 }

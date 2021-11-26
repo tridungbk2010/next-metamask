@@ -1,0 +1,39 @@
+.menuIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.menuButton {
+  height: 36px;
+  width: 36px;
+  z-index: 1000;
+  position: relative;
+}
+
+.menuIcon:before,
+.menuIcon:after {
+  display: block;
+  content: '';
+  width: 22px;
+  height: 1px;
+  background-color: #fff;
+  transition: transform 0.15s ease;
+}
+
+.menuIcon:before {
+  transform: translateY(-4px) rotate(0deg);
+}
+.menuIcon:after {
+  transform: translateY(4px) rotate(0deg);
+}
+
+.expand:before {
+  transform: translateY(1px) rotate(45deg);
+}
+.expand:after {
+  transform: translateY(0) rotate(-45deg);
+}

@@ -1,19 +1,43 @@
-import type { NextPage } from "next";
-import { useEthereum } from "../components/EthereumConext";
-import styles from "../styles/Home.module.css";
+import React from 'react';
+import type { NextPage } from 'next';
+import HeroSection from '../components/HeroSection';
+import VideoPlayer from '../shared/VideoPlayer';
+import AskQuestions from '../components/AskQuestions';
+import { Layout } from '../components/Layout';
+import Intro from '../components/HomeSections/Intro';
+import HomePageSeo from '../Seo/HomePageSeo';
+import Presale from '../components/HomeSections/Presale';
+
+const sources = {
+  url: '/video/randomize-desktop.mp4',
+  mobileUrl: '/video/randomize-mobile.mp4',
+};
 
 const Home: NextPage = () => {
-  const { connect, account, buttonText } = useEthereum();
-
   return (
-    <div className={styles.container}>
-      {account ? (
-        <span>{buttonText}</span>
-      ) : (
-        <button onClick={connect}>{buttonText}</button>
-      )}
-      <div>Acc: {account}</div>
-    </div>
+    <>
+      <HomePageSeo />
+      <Layout isPresale>
+        <div className="bg-black">
+          <HeroSection />
+          <div className="max-w-5xl mx-auto pb-20 px-4 md:px-0">
+            <div className="pt-8">
+              <img
+                src="/logo-and-slogan.svg"
+                className="h-20 lg:h-24 xl:h-28"
+                alt="logo2"
+              />
+            </div>
+            <Presale />
+            <Intro />
+            <div className="-ml-5 -mt-8">
+              <VideoPlayer {...sources} />
+            </div>
+            <AskQuestions />
+          </div>
+        </div>
+      </Layout>
+    </>
   );
 };
 
